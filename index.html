@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razones, Proporciones y su Aplicación Clínica | UCCuyo</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Outfit -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Outfit', sans-serif;
+            background-color: #f7f9f6;
+        }
+        /* Estilo visual UCCuyo (Verde Oliva Institucional) */
+        .text-accent { color: #436600; }
+        .bg-accent { background-color: #436600; }
+        .bg-accent-hover:hover { background-color: #324d00; }
+        .bg-accent-light { background-color: #f1f6eb; }
+        .border-accent { border-color: #436600; }
+
+        .text-primary { color: #436600; }
+        .bg-primary { background-color: #436600; }
+        .bg-primary-dark { background-color: #324d00; }
+        .border-primary { border-color: #436600; }
+
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(6px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 10px;
+        }
+        .custom-scroll::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+        .card-hover {
+            transition: all 0.25s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px -4px rgba(67, 102, 0, 0.12);
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col justify-between">
+
+    <!-- Cabecera Institucional UCCuyo -->
+    <header class="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-50">
+        <div class="max-w-6xl mx-auto px-4 py-3.5 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-lg bg-accent flex items-center justify-center text-white font-bold text-xl shadow-md">
+                    ME
+                </div>
+                <div>
+                    <h1 class="text-base sm:text-lg font-bold text-gray-800 tracking-wide uppercase">RAZONES, PROPORCIONES Y SU APLICACIÓN CLÍNICA</h1>
+                    <p class="text-xs text-gray-500 font-semibold">Matemática en Enfermería (Facultad de Cs. Médicas - UCCuyo)</p>
+                </div>
+            </div>
+            
+            <div class="flex items-center gap-3">
+                <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-[#f1f6eb] text-[#436600] border border-[#436600]/20">
+                    <i class="fa-solid fa-graduation-cap"></i> Curso de Ingreso
+                </span>
+                <!-- Botón Guía de Uso -->
+                <button onclick="openTutorial()" class="flex items-center gap-1.5 px-3 py-1.5 bg-accent text-white text-xs font-semibold rounded-lg shadow-sm hover:opacity-90 transition">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Guía de Uso
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Contenido Principal con navegación lateral -->
+    <main class="flex-1 max-w-6xl w-full mx-auto p-4 md:p-6 flex flex-col lg:flex-row gap-6">
+        
+        <!-- Menú de Navegación Lateral -->
+        <nav class="w-full lg:w-64 flex flex-row lg:flex-col gap-2 bg-white p-3 rounded-2xl shadow-sm border border-gray-100 overflow-x-auto lg:overflow-x-visible whitespace-nowrap lg:whitespace-normal sticky top-20 h-fit">
+            <button onclick="switchTab('tab-inicio')" id="btn-tab-inicio" class="bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs">
+                <i class="fa-solid fa-compass text-sm"></i>
+                <span>Presentación General</span>
+            </button>
+            <button onclick="switchTab('tab-mod1')" id="btn-tab-mod1" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-scale-balanced text-sm text-[#436600]"></i>
+                <span>1. Concepto de Razón</span>
+            </button>
+            <button onclick="switchTab('tab-mod2')" id="btn-tab-mod2" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-equals text-sm text-[#436600]"></i>
+                <span>2. Proporciones y Términos</span>
+            </button>
+            <button onclick="switchTab('tab-mod3')" id="btn-tab-mod3" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-calculator text-sm text-[#436600]"></i>
+                <span>3. Propiedad Fundamental</span>
+            </button>
+            <button onclick="switchTab('tab-taller')" id="btn-tab-taller" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-notes-medical text-sm text-[#436600]"></i>
+                <span>4. Taller Clínico Aplicado</span>
+            </button>
+            <button onclick="switchTab('tab-sintesis')" id="btn-tab-sintesis" class="text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5">
+                <i class="fa-solid fa-table-list text-sm text-[#436600]"></i>
+                <span>5. Síntesis y Fórmulas</span>
+            </button>
+
+            <!-- Tarjeta lateral de relevancia clínica -->
+            <div class="hidden lg:block mt-4 pt-3 border-t border-gray-100 bg-[#f1f6eb]/80 p-3 rounded-xl border border-[#436600]/20 text-xs text-slate-700 space-y-1">
+                <div class="font-bold text-[#436600] flex items-center gap-1.5 text-[11px] uppercase tracking-wider">
+                    <i class="fa-solid fa-shield-halved"></i> Seguridad Clínica
+                </div>
+                <p class="leading-relaxed text-gray-600 text-[11.5px]">
+                    El cálculo riguroso de razones y productos cruzados es el pilar de la dosificación pediátrica, preparación de infusiones y análisis epidemiológico en enfermería.
+                </p>
+            </div>
+        </nav>
+
+        <!-- Área de Contenido Principal -->
+        <section class="flex-1 min-w-0">
+
+            <!-- ================= PRESENTACIÓN GENERAL ================= -->
+            <div id="tab-inicio" class="tab-content active space-y-6">
+                <!-- Hero institucional -->
+                <div class="bg-gradient-to-br from-white to-[#f1f6eb] rounded-2xl p-6 sm:p-8 border border-gray-200/80 shadow-sm relative overflow-hidden">
+                    <div class="absolute right-0 top-0 translate-x-10 -translate-y-10 w-52 h-52 bg-[#436600]/10 rounded-full pointer-events-none"></div>
+                    <div class="max-w-2xl relative z-10 space-y-4">
+                        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-white border border-[#436600]/30 text-[#436600] shadow-xs">
+                            <i class="fa-solid fa-graduation-cap"></i> Curso de Ingreso • FCM UCCuyo
+                        </span>
+                        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+                            Razones, Proporciones y su Aplicación Clínica
+                        </h2>
+                        <p class="text-gray-600 text-sm sm:text-base leading-relaxed">
+                            Bienvenido al simulador formativo oficial de matemática para el ingreso a la Licenciatura en Enfermería. En esta unidad aprenderás a analizar y aplicar el concepto de <strong>razón</strong> (antecedente y consecuente), la igualdad de razones que fundamenta una <strong>proporción</strong> con números reales, y la <strong>propiedad fundamental</strong> (producto de extremos igual a producto de medios) para la resolución de situaciones reales en el ámbito sanitario.
+                        </p>
+                        <div class="flex flex-wrap gap-3 pt-2">
+                            <button onclick="switchTab('tab-mod1')" class="bg-accent hover:opacity-90 text-white font-semibold px-5 py-2.5 rounded-xl shadow-sm text-xs sm:text-sm transition flex items-center gap-2">
+                                <span>Comenzar con Módulo 1: Razón</span> <i class="fa-solid fa-arrow-right"></i>
+                            </button>
+                            <button onclick="switchTab('tab-taller')" class="bg-white hover:bg-gray-50 text-[#436600] border border-[#436600]/30 font-semibold px-5 py-2.5 rounded-xl shadow-xs text-xs sm:text-sm transition flex items-center gap-2">
+                                <i class="fa-solid fa-notes-medical text-[#436600]"></i> Explorar Taller Clínico
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Grid de Acceso a Módulos Formativos -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div onclick="switchTab('tab-mod1')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm card-hover cursor-pointer group">
+                        <div class="w-10 h-10 rounded-xl bg-[#f1f6eb] text-[#436600] flex items-center justify-center text-lg font-bold mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-gray-900 mb-1">Módulo 1: La Razón</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-3">Definición por cociente, distinción entre antecedente y consecuente, y simulación de pesos corporales.</p>
+                        <span class="text-[#436600] text-xs font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">Ver módulo <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod2')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm card-hover cursor-pointer group">
+                        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-700 flex items-center justify-center text-lg font-bold mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-equals"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-gray-900 mb-1">Módulo 2: Proporciones</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-3">Igualdad de razones con números reales, identificación de medios y extremos, y caso de maternidad.</p>
+                        <span class="text-blue-700 text-xs font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">Ver módulo <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                    </div>
+
+                    <div onclick="switchTab('tab-mod3')" class="bg-white p-5 rounded-2xl border border-gray-100 shadow-sm card-hover cursor-pointer group">
+                        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center text-lg font-bold mb-3 group-hover:scale-105 transition">
+                            <i class="fa-solid fa-calculator"></i>
+                        </div>
+                        <h3 class="text-base font-bold text-gray-900 mb-1">Módulo 3: Prop. Fundamental</h3>
+                        <p class="text-gray-500 text-xs leading-relaxed mb-3">Teorema del producto cruzado (<span class="font-mono">a · d = b · c</span>) y comprobador dinámico interactivo.</p>
+                        <span class="text-emerald-700 text-xs font-semibold flex items-center gap-1 group-hover:translate-x-1 transition">Ver módulo <i class="fa-solid fa-chevron-right text-[10px]"></i></span>
+                    </div>
+                </div>
+
+                <!-- Marco Pedagógico UCCuyo -->
+                <div class="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm space-y-3">
+                    <h3 class="text-sm font-bold text-gray-800 uppercase tracking-wider flex items-center gap-2">
+                        <i class="fa-solid fa-book-medical text-[#436600]"></i> Marco Curricular y Enfoque Disciplinar
+                    </h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-gray-600">
+                        <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200/60 space-y-1">
+                            <strong class="text-gray-900 block font-semibold">1. Nomenclatura Rigurosa en Salud:</strong>
+                            Superar el lenguaje vulgar de "fracción simple" para comprender antecedente y consecuente en razones reales aplicadas a dosis, pesos y constantes biológicas.
+                        </div>
+                        <div class="p-3.5 bg-gray-50 rounded-xl border border-gray-200/60 space-y-1">
+                            <strong class="text-gray-900 block font-semibold">2. Cero Errores en Medicación:</strong>
+                            Comprender que la regla de tres simple no es una receta mecánica aislada, sino la aplicación de la propiedad fundamental de las proporciones.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 1: CONCEPTO DE RAZÓN ================= -->
+            <div id="tab-mod1" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Módulo 1</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Concepto de Razón y Nomenclatura</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod2')" class="text-xs font-semibold text-[#436600] hover:underline flex items-center gap-1">
+                            Siguiente Módulo <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <!-- Explicación Teórica -->
+                        <div class="lg:col-span-7 space-y-4 text-gray-700 text-sm leading-relaxed">
+                            <p>
+                                En enfermería, comparar magnitudes es una tarea permanente: dosis por kilo de peso, flujo de oxígeno, relación enfermero-paciente o concentración de soluciones.
+                            </p>
+                            <div class="p-4 bg-[#f1f6eb] rounded-xl border border-[#436600]/20 space-y-2">
+                                <h4 class="font-bold text-[#436600] text-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-circle-info"></i> Definición Formal de Razón
+                                </h4>
+                                <p class="text-xs text-gray-800 leading-relaxed">
+                                    Una <strong>razón</strong> es el cociente (resultado de dividir) entre dos números o magnitudes:
+                                </p>
+                                <div class="text-center py-2 font-mono text-base font-bold text-[#436600]">
+                                    Razón = a / b &nbsp; o &nbsp; a : b &nbsp; (se lee "a es a b")
+                                </div>
+                            </div>
+
+                            <div class="p-4 bg-amber-50/70 border border-amber-200 rounded-xl space-y-1.5 text-xs text-amber-900">
+                                <strong class="font-bold flex items-center gap-1.5 text-amber-950">
+                                    <i class="fa-solid fa-triangle-exclamation text-amber-600"></i> Distinción Vital con las Fracciones:
+                                </strong>
+                                <p>
+                                    En una fracción ordinaria nos referimos a <em>numerador</em> y <em>denominador</em>. En la teoría de razones y proporciones, el término superior se llama <strong class="text-amber-950">Antecedente (a)</strong> y el inferior se llama <strong class="text-amber-950">Consecuente (b)</strong>. Además, en las razones los términos pueden ser <strong>números reales con decimales</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Simulador Interactivo de Pesos -->
+                        <div class="lg:col-span-5 bg-gray-50 border border-gray-200 rounded-2xl p-5 space-y-4 shadow-xs">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-bed-pulse text-[#436600]"></i> Simulación Clínica de Pesos
+                                </h3>
+                                <span class="text-[10px] font-bold bg-[#f1f6eb] text-[#436600] px-2 py-0.5 rounded">Interactivo</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Mueve los controles para variar los pesos de los pacientes y observar la razón clínica:</p>
+
+                            <div class="space-y-3 bg-white p-3.5 rounded-xl border border-gray-200/80">
+                                <div>
+                                    <div class="flex justify-between text-xs font-semibold text-gray-700">
+                                        <span>Paciente B (Antecedente $a$):</span>
+                                        <span id="val-pacB" class="text-[#436600] font-bold">80 kg</span>
+                                    </div>
+                                    <input type="range" id="slider-pacB" min="20" max="160" value="80" step="5" class="w-full accent-[#436600] mt-1" oninput="updateMod1()">
+                                </div>
+                                <div>
+                                    <div class="flex justify-between text-xs font-semibold text-gray-700">
+                                        <span>Paciente A (Consecuente $b$):</span>
+                                        <span id="val-pacA" class="text-[#436600] font-bold">40 kg</span>
+                                    </div>
+                                    <input type="range" id="slider-pacA" min="10" max="100" value="40" step="5" class="w-full accent-[#436600] mt-1" oninput="updateMod1()">
+                                </div>
+                            </div>
+
+                            <div class="bg-white p-4 rounded-xl border border-gray-200 text-center space-y-1.5 shadow-2xs">
+                                <span class="text-[10px] uppercase font-bold text-gray-400 tracking-wider">Cociente de Razón</span>
+                                <div id="mod1-formula" class="text-xl font-extrabold text-[#436600] font-mono">80 / 40 = 2.00</div>
+                                <p id="mod1-interpretation" class="text-xs text-gray-600 font-medium italic">
+                                    El paciente B pesa el doble (2 veces) que el paciente A.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-inicio')" class="text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-left"></i> Inicio
+                        </button>
+                        <button onclick="switchTab('tab-mod2')" class="bg-accent hover:opacity-90 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
+                            <span>Módulo 2: Proporciones</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 2: PROPORCIONES ================= -->
+            <div id="tab-mod2" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-blue-700 bg-blue-50 px-3 py-1 rounded-full">Módulo 2</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Proporciones, Extremos y Medios</h2>
+                        </div>
+                        <button onclick="switchTab('tab-mod3')" class="text-xs font-semibold text-blue-700 hover:underline flex items-center gap-1">
+                            Siguiente Módulo <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <!-- Explicación -->
+                        <div class="lg:col-span-7 space-y-4 text-gray-700 text-sm leading-relaxed">
+                            <p>
+                                Cuando dos razones arrojan exactamente el mismo valor o cociente, establecemos una <strong>proporción</strong>.
+                            </p>
+
+                            <div class="p-4 bg-blue-50/70 border border-blue-200 rounded-xl space-y-2">
+                                <h4 class="font-bold text-blue-900 text-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-equals"></i> Igualdad de Razones
+                                </h4>
+                                <div class="text-center font-mono text-base font-bold text-blue-950 py-1">
+                                    a / b = c / d &nbsp;&nbsp;ó&nbsp;&nbsp; a : b :: c : d
+                                </div>
+                                <p class="text-xs text-blue-800 text-center">
+                                    Se lee: <em>"a es a b como c es a d"</em>.
+                                </p>
+                            </div>
+
+                            <p class="text-xs text-gray-600">
+                                En el contexto clínico, los cuatro valores ($a, b, c, d$) son números reales ($b \neq 0, d \neq 0$) y se clasifican según su posición espacial:
+                            </p>
+
+                            <!-- Diagrama visual de Extremos y Medios -->
+                            <div class="bg-gray-50 border border-gray-200 rounded-xl p-4 space-y-3">
+                                <h4 class="text-xs font-bold text-gray-800 uppercase tracking-wider">Identificación Anatómica de Términos</h4>
+                                <div class="grid grid-cols-2 gap-3">
+                                    <div class="bg-white p-3 rounded-xl border border-emerald-200 text-center">
+                                        <span class="text-[10px] font-bold text-emerald-800 uppercase tracking-wider block mb-1">Términos Extremos</span>
+                                        <div class="text-lg font-extrabold text-emerald-700 font-mono">a &nbsp;y&nbsp; d</div>
+                                        <p class="text-[11px] text-gray-500 mt-1">El primer numerador y el último denominador</p>
+                                    </div>
+                                    <div class="bg-white p-3 rounded-xl border border-sky-200 text-center">
+                                        <span class="text-[10px] font-bold text-sky-800 uppercase tracking-wider block mb-1">Términos Medios</span>
+                                        <div class="text-lg font-extrabold text-sky-700 font-mono">b &nbsp;y&nbsp; c</div>
+                                        <p class="text-[11px] text-gray-500 mt-1">El primer denominador y el segundo numerador</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ejemplo Clínico de Maternidad -->
+                        <div class="lg:col-span-5 bg-gradient-to-br from-blue-50/50 to-white border border-blue-200 rounded-2xl p-5 space-y-4 shadow-xs">
+                            <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-hospital text-blue-700"></i> Estadísticas de Maternidad
+                            </h3>
+                            <p class="text-xs text-gray-600">
+                                Dos centros hospitalarios de San Juan evalúan su tasa de partos normales en distintos períodos:
+                            </p>
+
+                            <div class="grid grid-cols-2 gap-3 text-center">
+                                <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-2xs">
+                                    <p class="text-[11px] font-bold text-gray-700">Hospital Rawson</p>
+                                    <p class="text-base font-extrabold text-blue-700 font-mono my-1">10 / 2</p>
+                                    <span class="text-[10px] bg-blue-50 text-blue-800 px-2 py-0.5 rounded font-semibold">Razón = 5 partos/día</span>
+                                </div>
+                                <div class="bg-white p-3 rounded-xl border border-blue-100 shadow-2xs">
+                                    <p class="text-[11px] font-bold text-gray-700">Hospital Marcial Quiroga</p>
+                                    <p class="text-base font-extrabold text-blue-700 font-mono my-1">30 / 6</p>
+                                    <span class="text-[10px] bg-blue-50 text-blue-800 px-2 py-0.5 rounded font-semibold">Razón = 5 partos/día</span>
+                                </div>
+                            </div>
+
+                            <div class="p-3 bg-white rounded-xl border border-blue-200 text-center space-y-1">
+                                <p class="text-xs font-bold text-gray-800">
+                                    Como 10 / 2 = 5 y 30 / 6 = 5, forman una proporción:
+                                </p>
+                                <div class="text-sm font-mono font-bold text-blue-900">
+                                    10 / 2 = 30 / 6
+                                </div>
+                                <p class="text-[11px] text-gray-500">
+                                    Extremos: <span class="font-bold text-emerald-700">10</span> y <span class="font-bold text-emerald-700">6</span> &nbsp;|&nbsp; 
+                                    Medios: <span class="font-bold text-sky-700">2</span> y <span class="font-bold text-sky-700">30</span>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-mod1')" class="text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-left"></i> Módulo 1
+                        </button>
+                        <button onclick="switchTab('tab-mod3')" class="bg-blue-700 hover:opacity-90 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
+                            <span>Módulo 3: Propiedad Fundamental</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 3: PROPIEDAD FUNDAMENTAL ================= -->
+            <div id="tab-mod3" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 bg-emerald-50 px-3 py-1 rounded-full">Módulo 3</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Propiedad Fundamental de las Proporciones</h2>
+                        </div>
+                        <button onclick="switchTab('tab-taller')" class="text-xs font-semibold text-emerald-700 hover:underline flex items-center gap-1">
+                            Taller Clínico <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+                        <!-- Demostración Teórica -->
+                        <div class="lg:col-span-7 space-y-4 text-gray-700 text-sm leading-relaxed">
+                            <div class="p-4 bg-emerald-50/80 border border-emerald-200 rounded-xl space-y-2">
+                                <h4 class="font-bold text-emerald-950 text-sm flex items-center gap-1.5">
+                                    <i class="fa-solid fa-certificate text-emerald-600"></i> Teorema del Producto Cruzado
+                                </h4>
+                                <p class="text-xs text-emerald-900 leading-relaxed">
+                                    En toda proporción numérica o clínica, <strong>el producto de los extremos es igual al producto de los medios</strong>:
+                                </p>
+                                <div class="text-center py-2 font-mono text-lg font-black text-emerald-900 bg-white rounded-lg border border-emerald-200/80 shadow-2xs">
+                                    a · d = b · c
+                                </div>
+                            </div>
+
+                            <p>
+                                Esta propiedad es el pilar para <strong>despejar incógnitas ($x$)</strong> en farmacología: al cruzar multiplicativamente los denominadores, podemos calcular la dosis exacta de un fármaco conociendo la presentación comercial.
+                            </p>
+
+                            <!-- Ejemplo de Verificación Cruzada -->
+                            <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 text-xs space-y-2">
+                                <strong class="font-bold text-gray-900 block">Comprobación del ejemplo de maternidad:</strong>
+                                <p class="font-mono text-gray-800">
+                                    10 / 2 = 30 / 6 &nbsp;&rarr;&nbsp; Producto de Extremos = 10 · 6 = <strong>60</strong><br>
+                                    Producto de Medios = 2 · 30 = <strong>60</strong> &nbsp;(¡Se cumple la igualdad!)
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Verificador Numérico Interactivo -->
+                        <div class="lg:col-span-5 bg-gray-50 border border-gray-200 rounded-2xl p-5 space-y-4 shadow-xs">
+                            <div class="flex items-center justify-between">
+                                <h3 class="font-bold text-gray-900 text-sm flex items-center gap-2">
+                                    <i class="fa-solid fa-calculator text-emerald-600"></i> Verificador Cruzado
+                                </h3>
+                                <span class="text-[10px] font-bold bg-emerald-100 text-emerald-800 px-2 py-0.5 rounded">En tiempo real</span>
+                            </div>
+                            <p class="text-xs text-gray-500">Ingresa 4 términos para verificar si forman una proporción válida:</p>
+
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="bg-white p-2.5 rounded-xl border border-gray-200">
+                                    <label class="text-[10px] font-bold text-emerald-700 block uppercase">a (Extremo)</label>
+                                    <input type="number" id="prop-a" value="10" class="w-full mt-1 p-1.5 border border-gray-300 rounded-lg text-xs font-bold text-center" oninput="verifyProportion()">
+                                </div>
+                                <div class="bg-white p-2.5 rounded-xl border border-gray-200">
+                                    <label class="text-[10px] font-bold text-sky-700 block uppercase">b (Medio)</label>
+                                    <input type="number" id="prop-b" value="2" class="w-full mt-1 p-1.5 border border-gray-300 rounded-lg text-xs font-bold text-center" oninput="verifyProportion()">
+                                </div>
+                                <div class="bg-white p-2.5 rounded-xl border border-gray-200">
+                                    <label class="text-[10px] font-bold text-sky-700 block uppercase">c (Medio)</label>
+                                    <input type="number" id="prop-c" value="30" class="w-full mt-1 p-1.5 border border-gray-300 rounded-lg text-xs font-bold text-center" oninput="verifyProportion()">
+                                </div>
+                                <div class="bg-white p-2.5 rounded-xl border border-gray-200">
+                                    <label class="text-[10px] font-bold text-emerald-700 block uppercase">d (Extremo)</label>
+                                    <input type="number" id="prop-d" value="6" class="w-full mt-1 p-1.5 border border-gray-300 rounded-lg text-xs font-bold text-center" oninput="verifyProportion()">
+                                </div>
+                            </div>
+
+                            <div id="prop-result-box" class="p-3 rounded-xl border text-center text-xs font-semibold bg-emerald-50 border-emerald-200 text-emerald-800 shadow-2xs">
+                                ¡Proporción Válida! Extremos (10 · 6 = 60) = Medios (2 · 30 = 60).
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-mod2')" class="text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-left"></i> Módulo 2
+                        </button>
+                        <button onclick="switchTab('tab-taller')" class="bg-emerald-700 hover:opacity-90 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
+                            <span>Pasar al Taller Clínico</span> <i class="fa-solid fa-notes-medical"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 4: TALLER CLÍNICO APLICADO ================= -->
+            <div id="tab-taller" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4 flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Módulo 4</span>
+                            <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Taller de Aplicación Clínica Asistencial</h2>
+                        </div>
+                        <button onclick="switchTab('tab-sintesis')" class="text-xs font-semibold text-[#436600] hover:underline flex items-center gap-1">
+                            Ver Síntesis <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <p class="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                        Explora tres situaciones asistenciales concretas donde la correcta formulación de razones y proporciones garantiza la seguridad del paciente y la gestión sanitaria. Haz clic en cada caso para ver el desglose paso a paso:
+                    </p>
+
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Caso 1 -->
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-lg bg-[#f1f6eb] text-[#436600] flex items-center justify-center font-bold text-xs">1</span>
+                                <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Comparación Pediátrica</h4>
+                            </div>
+                            <p class="text-xs text-gray-600">
+                                Paciente de 36 kg frente a hermano menor de 12 kg:
+                            </p>
+                            <div class="p-3 bg-white rounded-xl border border-gray-200 text-xs space-y-1">
+                                <p><strong>Antecedente ($a$):</strong> 36 kg</p>
+                                <p><strong>Consecuente ($b$):</strong> 12 kg</p>
+                                <div class="font-mono text-[#436600] font-bold text-sm">Razón = 36 / 12 = 3.0</div>
+                                <p class="text-[11px] text-gray-500 italic mt-1">El peso del paciente triplica al de su hermano.</p>
+                            </div>
+                        </div>
+
+                        <!-- Caso 2 -->
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-lg bg-blue-50 text-blue-700 flex items-center justify-center font-bold text-xs">2</span>
+                                <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Validación de Igualdad</h4>
+                            </div>
+                            <p class="text-xs text-gray-600">
+                                Proporción teórica en concentraciones: <span class="font-mono font-bold">12 / 4 = 15 / 5</span>.
+                            </p>
+                            <div class="p-3 bg-white rounded-xl border border-gray-200 text-xs space-y-1">
+                                <p><strong>Extremos:</strong> 12 · 5 = 60</p>
+                                <p><strong>Medios:</strong> 4 · 15 = 60</p>
+                                <div class="font-mono text-blue-700 font-bold text-sm">60 = 60 (Válida)</div>
+                                <p class="text-[11px] text-gray-500 italic mt-1">Ambas razones comparten la constante 3.0.</p>
+                            </div>
+                        </div>
+
+                        <!-- Caso 3 -->
+                        <div class="bg-gray-50 p-4 rounded-2xl border border-gray-200 space-y-3">
+                            <div class="flex items-center gap-2">
+                                <span class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold text-xs">3</span>
+                                <h4 class="font-bold text-gray-900 text-xs sm:text-sm">Proyección Hospitalaria</h4>
+                            </div>
+                            <p class="text-xs text-gray-600">
+                                24 partos en 3 días. ¿Cuántos partos habrá en 12 días?
+                            </p>
+                            <div class="p-3 bg-white rounded-xl border border-gray-200 text-xs space-y-1">
+                                <p class="font-mono">24 / 3 = x / 12</p>
+                                <p><strong>Despeje:</strong> x = (24 · 12) / 3</p>
+                                <div class="font-mono text-emerald-700 font-bold text-sm">x = 288 / 3 = 96 partos</div>
+                                <p class="text-[11px] text-gray-500 italic mt-1">Cálculo exacto por producto de extremos y medios.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculadora Interactiva de Despeje Clínico (x) -->
+                    <div class="bg-[#f1f6eb]/80 p-5 rounded-2xl border border-[#436600]/20 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <h4 class="font-bold text-[#436600] text-sm flex items-center gap-2">
+                                <i class="fa-solid fa-calculator"></i> Simulador de Despeje de Incógnita Clínica ($x$)
+                            </h4>
+                            <span class="text-[10px] font-bold bg-white text-[#436600] px-2 py-0.5 rounded border border-[#436600]/20">Práctica Libre</span>
+                        </div>
+                        <p class="text-xs text-gray-700">
+                            Modifica los valores para calcular la incógnita $x$ aplicando la propiedad fundamental: <span class="font-mono font-bold">$a / b = x / d \implies x = (a \cdot d) / b$</span>.
+                        </p>
+
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-white p-3.5 rounded-xl border border-gray-200">
+                            <div>
+                                <label class="text-[10px] font-bold text-gray-600 block uppercase">a (Dosis o Valor 1)</label>
+                                <input type="number" id="calc-a" value="24" class="w-full mt-1 p-1.5 border border-gray-300 rounded-lg text-xs font-bold text-center" oninput="solveClinicalX()">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-gray-600 block uppercase">b (Tiempo o Volumen 1)</label>
+                                <input type="number" id="calc-b" value="3" class="w-full mt-1 p-1.5 border border-gray-300 rounded-lg text-xs font-bold text-center" oninput="solveClinicalX()">
+                            </div>
+                            <div>
+                                <label class="text-[10px] font-bold text-gray-600 block uppercase">d (Tiempo o Volumen 2)</label>
+                                <input type="number" id="calc-d" value="12" class="w-full mt-1 p-1.5 border border-gray-300 rounded-lg text-xs font-bold text-center" oninput="solveClinicalX()">
+                            </div>
+                            <div class="bg-[#f1f6eb] p-2 rounded-lg text-center flex flex-col justify-center">
+                                <span class="text-[10px] font-bold text-[#436600] uppercase">Resultado (x)</span>
+                                <span id="calc-x-res" class="text-base font-extrabold text-[#436600] font-mono">96.00</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-mod3')" class="text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-left"></i> Módulo 3
+                        </button>
+                        <button onclick="switchTab('tab-sintesis')" class="bg-accent hover:opacity-90 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
+                            <span>Módulo 5: Síntesis y Fórmulas</span> <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= MÓDULO 5: SÍNTESIS Y FÓRMULAS ================= -->
+            <div id="tab-sintesis" class="tab-content space-y-6">
+                <div class="bg-white rounded-2xl p-6 sm:p-8 border border-gray-100 shadow-sm space-y-6">
+                    <div class="border-b border-gray-100 pb-4">
+                        <span class="text-xs font-bold uppercase tracking-wider text-[#436600] bg-[#f1f6eb] px-3 py-1 rounded-full">Módulo 5</span>
+                        <h2 class="text-xl sm:text-2xl font-bold text-gray-900 mt-1">Síntesis Disciplinar y Matriz de Conceptos</h2>
+                        <p class="text-xs sm:text-sm text-gray-500 mt-1">Cuadro comparativo y reglas de oro de proporciones para el ejercicio profesional.</p>
+                    </div>
+
+                    <!-- Tabla de Síntesis -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left text-xs border border-gray-200 rounded-xl overflow-hidden">
+                            <thead class="bg-gray-50 border-b border-gray-200 text-gray-700 font-bold uppercase text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="p-3">Concepto</th>
+                                    <th class="p-3">Fórmula / Representación</th>
+                                    <th class="p-3">Elementos y Nomenclatura</th>
+                                    <th class="p-3">Aplicación en Salud</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gray-100 text-gray-600">
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-900">Razón</td>
+                                    <td class="p-3 font-mono text-[#436600] font-bold">a / b = k</td>
+                                    <td class="p-3"><strong>a:</strong> Antecedente<br><strong>b:</strong> Consecuente ($b \neq 0$)</td>
+                                    <td class="p-3">Comparación de pesos corporales, relación enfermero/paciente.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-900">Proporción</td>
+                                    <td class="p-3 font-mono text-blue-700 font-bold">a / b = c / d</td>
+                                    <td class="p-3"><strong>Extremos:</strong> a y d<br><strong>Medios:</strong> b y c</td>
+                                    <td class="p-3">Comparación de estadísticas de natalidad en centros de salud.</td>
+                                </tr>
+                                <tr>
+                                    <td class="p-3 font-bold text-gray-900">Propiedad Fundamental</td>
+                                    <td class="p-3 font-mono text-emerald-700 font-bold">a · d = b · c</td>
+                                    <td class="p-3">Producto de extremos igual a producto de medios</td>
+                                    <td class="p-3">Despeje de dosis desconocidas, velocidad de goteo y diluciones.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Decálogo de Buenas Prácticas Clínico-Matemáticas -->
+                    <div class="p-4 bg-gray-50 rounded-xl border border-gray-200 space-y-2 text-xs text-gray-700">
+                        <h4 class="font-bold text-gray-900 flex items-center gap-1.5">
+                            <i class="fa-solid fa-list-check text-[#436600]"></i> Principios Rectores de Cálculo para el Aspirante UCCuyo
+                        </h4>
+                        <ul class="list-disc pl-5 space-y-1 text-gray-600 leading-relaxed">
+                            <li><strong>Identificación Clara:</strong> Nunca confunda el antecedente con el consecuente. Si invierte las variables, el resultado interpretará la magnitud inversa.</li>
+                            <li><strong>Consistencia de Unidades:</strong> Asegúrese de que ambos lados de la proporción utilicen las mismas unidades (ej. kg con kg, días con días, ml con ml).</li>
+                            <li><strong>Verificación de Seguridad:</strong> Antes de administrar cualquier medicación calculada, realice la multiplicación cruzada inversa para reconfirmar que el producto de medios y extremos coincide exactamente.</li>
+                        </ul>
+                    </div>
+
+                    <div class="pt-4 border-t border-gray-100 flex justify-between items-center">
+                        <button onclick="switchTab('tab-taller')" class="text-xs font-medium text-gray-500 hover:text-gray-800 flex items-center gap-1">
+                            <i class="fa-solid fa-arrow-left"></i> Taller Clínico
+                        </button>
+                        <button onclick="switchTab('tab-inicio')" class="bg-accent hover:opacity-90 text-white font-semibold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-xs">
+                            <i class="fa-solid fa-house"></i> <span>Volver a la Presentación</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- Modal: Guía de Uso del Simulador -->
+    <div id="tutorial-modal" class="fixed inset-0 bg-slate-900/50 backdrop-blur-xs z-50 flex items-center justify-center p-3 sm:p-4 hidden">
+        <div class="bg-white rounded-2xl max-w-2xl w-full p-5 sm:p-6 shadow-xl border border-gray-200 flex flex-col max-h-[90vh] overflow-hidden animate-fadeIn">
+            
+            <div class="flex items-center justify-between pb-3 border-b border-gray-100">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-5 bg-accent rounded-full inline-block"></span>
+                    <h3 class="text-base font-bold text-gray-800">Guía de Uso del Simulador</h3>
+                </div>
+                <button onclick="closeTutorial()" class="text-gray-400 hover:text-gray-600 p-1 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="overflow-y-auto custom-scroll pr-1 my-3 space-y-4 text-xs text-gray-600 leading-relaxed">
+                <!-- Propósito Académico -->
+                <div class="p-3 bg-[#f1f6eb]/80 rounded-xl border border-[#436600]/20 space-y-1">
+                    <strong class="font-bold text-[#436600] flex items-center gap-1.5">
+                        <i class="fa-solid fa-graduation-cap"></i> Propósito Institucional y Marco Académico:
+                    </strong>
+                    <p>
+                        Diseñado especialmente para los aspirantes a la <strong>Licenciatura en Enfermería de la UCCuyo (San Juan)</strong>. Su objetivo es consolidar el dominio conceptual y formativo de razones y proporciones para garantizar la dosificación segura de medicamentos y el análisis riguroso de indicadores sanitarios, sin depender de mecánicas de juego.
+                    </p>
+                </div>
+
+                <!-- Navegación y Herramientas Formativas -->
+                <div class="space-y-2">
+                    <strong class="font-bold text-gray-800 block text-xs uppercase tracking-wide">Estructura y Herramientas Formativas:</strong>
+                    <ul class="space-y-2 pl-1">
+                        <li class="border-b border-gray-100 pb-1.5">
+                            <strong class="text-gray-900 block font-semibold">1. Menú Lateral de Navegación:</strong>
+                            Permite recorrer los 5 módulos temáticos estructurados (Presentación, Razón, Proporciones, Propiedad Fundamental, Taller Clínico y Síntesis Disciplinar).
+                        </li>
+                        <li class="border-b border-gray-100 pb-1.5">
+                            <strong class="text-gray-900 block font-semibold">2. Simulador Clínico de Pesos (Módulo 1):</strong>
+                            Interactúa con los controles deslizantes para comprobar en tiempo real cómo varía el cociente de razón según el peso de dos pacientes.
+                        </li>
+                        <li class="border-b border-gray-100 pb-1.5">
+                            <strong class="text-gray-900 block font-semibold">3. Verificador Cruzado en Tiempo Real (Módulo 3):</strong>
+                            Introduce 4 valores numéricos cualesquiera para verificar instantáneamente si forman una proporción válida calculando <span class="font-mono">a · d = b · c</span>.
+                        </li>
+                        <li class="border-b border-gray-100 pb-1.5">
+                            <strong class="text-gray-900 block font-semibold">4. Taller Clínico Asistencial (Módulo 4):</strong>
+                            Analiza situaciones asistenciales reales y utiliza la calculadora de despeje de incógnita ($x$) para resolver dosis y tasas hospitalarias.
+                        </li>
+                        <li class="border-b border-gray-100 pb-1.5">
+                            <strong class="text-gray-900 block font-semibold">5. Síntesis Disciplinar (Módulo 5):</strong>
+                            Consulta la matriz comparativa de fórmulas y las reglas de oro de seguridad farmacológica.
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Consejos Pedagógicos -->
+                <div class="p-3 bg-amber-50/80 rounded-xl border border-amber-200 text-[11px] text-amber-900 space-y-1">
+                    <strong class="block font-bold text-amber-950 flex items-center gap-1.5">
+                        <i class="fa-solid fa-lightbulb text-amber-700"></i> Recomendaciones Pedagógicas UCCuyo:
+                    </strong>
+                    <p>
+                        1. Distingue siempre con precisión el <strong>antecedente</strong> (numerador) del <strong>consecuente</strong> (denominador); invertir su orden altera completamente el significado del cociente.<br>
+                        2. Comprueba siempre que el producto de los extremos sea exactamente igual al producto de los medios antes de validar un resultado.<br>
+                        3. Los términos de una proporción en salud pueden ser decimales (números reales), pero los denominadores nunca pueden ser cero.
+                    </p>
+                </div>
+            </div>
+
+            <div class="pt-2 border-t border-gray-100 flex items-center justify-between">
+                <span class="text-[10.5px] text-gray-400 font-medium">UCCuyo • Matemática en Enfermería</span>
+                <button onclick="closeTutorial()" class="bg-primary text-white font-semibold py-2 px-5 rounded-lg text-xs hover:opacity-90 transition shadow-sm">
+                    Entendido, Comenzar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie de Página Institucional -->
+    <footer class="bg-white border-t border-gray-200 py-4 text-center text-xs text-gray-500">
+        <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+            <p>Universidad Católica de Cuyo • Facultad de Ciencias Médicas • Licenciatura en Enfermería</p>
+            <p class="text-gray-400 font-medium">Simulador Interactivo Formativo • Ecosistema Vesalio</p>
+        </div>
+    </footer>
+
+    <!-- Script de Lógica Interactiva y Navegación -->
+    <script>
+        // Modal Tutorial
+        function openTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.remove('hidden');
+        }
+        function closeTutorial() {
+            const m = document.getElementById('tutorial-modal');
+            if (m) m.classList.add('hidden');
+        }
+
+        window.addEventListener('click', function(e) {
+            const m = document.getElementById('tutorial-modal');
+            if (e.target === m) closeTutorial();
+        });
+
+        // Navegación fluida entre pestañas temáticas
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+            
+            const target = document.getElementById(tabId);
+            if (target) target.classList.add('active');
+
+            const tabIds = ['tab-inicio', 'tab-mod1', 'tab-mod2', 'tab-mod3', 'tab-taller', 'tab-sintesis'];
+            tabIds.forEach(id => {
+                const btn = document.getElementById('btn-' + id);
+                if (btn) {
+                    if (id === tabId) {
+                        btn.className = 'bg-accent text-white flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-semibold transition flex items-center gap-2.5 shadow-xs';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-[#436600]');
+                            icon.classList.add('text-white');
+                        }
+                    } else {
+                        btn.className = 'text-gray-700 hover:bg-gray-100 flex-1 lg:flex-none text-left py-2.5 px-4 rounded-xl text-sm font-medium transition flex items-center gap-2.5';
+                        const icon = btn.querySelector('i');
+                        if (icon) {
+                            icon.classList.remove('text-white');
+                            icon.classList.add('text-[#436600]');
+                        }
+                    }
+                }
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // ==========================================
+        // MÓDULO 1: SLIDER DE PESOS
+        // ==========================================
+        function updateMod1() {
+            const pacB = parseInt(document.getElementById('slider-pacB').value) || 80;
+            const pacA = parseInt(document.getElementById('slider-pacA').value) || 40;
+            
+            document.getElementById('val-pacB').innerText = pacB + ' kg';
+            document.getElementById('val-pacA').innerText = pacA + ' kg';
+
+            const ratio = (pacB / pacA).toFixed(2);
+            document.getElementById('mod1-formula').innerText = `${pacB} / ${pacA} = ${ratio}`;
+            
+            let interp = "";
+            if (ratio > 1) {
+                interp = `El paciente B pesa ${ratio} veces el peso del paciente A (Antecedente = ${pacB} kg, Consecuente = ${pacA} kg).`;
+            } else if (ratio == 1) {
+                interp = `Ambos pacientes pesan exactamente lo mismo (${pacB} kg). La razón es 1.00.`;
+            } else {
+                interp = `El paciente B pesa una fracción (${ratio}) respecto al paciente A.`;
+            }
+            document.getElementById('mod1-interpretation').innerText = interp;
+        }
+
+        // ==========================================
+        // MÓDULO 3: VERIFICADOR CRUZADO
+        // ==========================================
+        function verifyProportion() {
+            const a = parseFloat(document.getElementById('prop-a').value) || 0;
+            const b = parseFloat(document.getElementById('prop-b').value) || 1;
+            const c = parseFloat(document.getElementById('prop-c').value) || 0;
+            const d = parseFloat(document.getElementById('prop-d').value) || 1;
+
+            const extremos = a * d;
+            const medios = b * c;
+            const box = document.getElementById('prop-result-box');
+
+            if (Math.abs(extremos - medios) < 0.001 && b !== 0 && d !== 0) {
+                box.className = "p-3 rounded-xl border text-center text-xs font-semibold bg-emerald-50 border-emerald-200 text-emerald-800 shadow-2xs";
+                box.innerHTML = `¡Proporción Válida! Extremos (${a} · ${d} = ${extremos}) = Medios (${b} · ${c} = ${medios}).`;
+            } else {
+                box.className = "p-3 rounded-xl border text-center text-xs font-semibold bg-amber-50 border-amber-200 text-amber-800 shadow-2xs";
+                box.innerHTML = `No es proporción exacta. Extremos (${extremos}) ≠ Medios (${medios}).`;
+            }
+        }
+
+        // ==========================================
+        // MÓDULO 4: CALCULADORA DE DESPEJE DE X
+        // ==========================================
+        function solveClinicalX() {
+            const a = parseFloat(document.getElementById('calc-a').value) || 0;
+            const b = parseFloat(document.getElementById('calc-b').value) || 1;
+            const d = parseFloat(document.getElementById('calc-d').value) || 0;
+
+            const resSpan = document.getElementById('calc-x-res');
+            if (b === 0) {
+                resSpan.innerText = "Error (b=0)";
+            } else {
+                const x = (a * d) / b;
+                resSpan.innerText = Number.isInteger(x) ? x.toString() : x.toFixed(2);
+            }
+        }
+
+        // Inicialización
+        window.onload = function() {
+            updateMod1();
+            verifyProportion();
+            solveClinicalX();
+        };
+    </script>
+</body>
+</html>
